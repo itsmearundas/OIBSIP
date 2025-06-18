@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tribute to Dr. A.P.J. Abdul Kalam</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Open+Sans&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --mint: #EFFFFD;
+      --aqua: #B8FFF9;
+      --sky: #85F4FF;
+      --blue: #42C2FF;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Open Sans', sans-serif;
+      color: #222;
+      background: linear-gradient(to bottom right, var(--mint), var(--aqua));
+      line-height: 1.6;
+    }
+
+    header {
+      background: var(--blue);
+      color: white;
+      text-align: center;
+      padding: 60px 20px;
+      clip-path: ellipse(150% 100% at 50% 0%);
+    }
+
+    header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+    }
+
+    header p {
+      font-size: 1.2rem;
+      margin-top: 10px;
+    }
+
+    .play-button {
+      margin: 30px auto 0;
+      font-size: 2rem;
+      width: 60px;
+      height: 60px;
+      border: 3px solid white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .quote-section {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      background: var(--mint);
+      padding: 60px 20px;
+      text-align: center;
+    }
+
+    blockquote {
+      font-size: 1.8rem;
+      font-style: italic;
+      max-width: 600px;
+      margin: 20px;
+      color: #222;
+    }
+
+    .portrait {
+      max-width: 280px;
+      border-radius: 16px;
+      margin: 20px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .biography {
+      background: white;
+      max-width: 900px;
+      margin: 60px auto;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+    }
+
+    .biography h2 {
+      text-align: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      color: var(--blue);
+      margin-bottom: 20px;
+    }
+
+    .biography p {
+      font-size: 1.1rem;
+      color: #333;
+      text-align: justify;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: var(--sky);
+      font-size: 0.95rem;
+      color: #000;
+    }
+
+    footer a {
+      color: #000;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    @media (max-width: 768px) {
+      blockquote {
+        font-size: 1.4rem;
+      }
+
+      .biography {
+        margin: 20px;
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Dr. A.P.J. Abdul Kalam</h1>
+    <p>1931 - 2015</p>
+  </header>
+
+  <section class="quote-section">
+    <blockquote>
+      “You have to dream before your dreams can come true.”
+    </blockquote>
+    <img src="https://img.mensxp.com/media/content/2019/Oct/apj-abdul-kalam600-1571144044.jpg?w=528&h=792&cc=1" alt="Dr. A.P.J. Abdul Kalam" class="portrait">
+  </section>
+
+  <section class="biography">
+    <h2>Biography</h2>
+    <p>
+      Dr. Avul Pakir Jainulabdeen Abdul Kalam was an Indian aerospace scientist and the 11th President of India (2002–2007). Revered as the “Missile Man of India” for his pivotal role in India's space and missile programs, he worked with ISRO and DRDO, shaping the nation’s defense capabilities and satellite programs.
+    </p>
+    <p>
+      A visionary and a teacher at heart, Dr. Kalam inspired millions with his wisdom, humility, and tireless dedication to education and youth empowerment. He authored numerous books, including “Wings of Fire” and “Ignited Minds.” In 2015, he passed away while delivering a lecture, embodying his lifelong commitment to knowledge and service.
+    </p>
+  </section>
+
+  <footer>
+    Made with 💙 in honor of Dr. Kalam by <a href="#">Arun Das</a>
+  </footer>
+
+</body>
+</html>

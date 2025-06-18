@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Calculator</title>
+    <style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #2c3e50, #0a0e10);
+    margin: 0;
+    overflow: hidden;
+    color: #ecf0f1;
+  }
+
+  .calculator {
+    background-color: #1e2a36;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5),
+                0 0 8px rgba(0, 0, 0, 0.3) inset;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    text-align: center;
+    max-width: 280px;
+    width: 90%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .calculator h2 {
+    color: #87CEEB;
+    margin-bottom: 20px;
+    font-size: 1.5em;
+    letter-spacing: 1px;
+    text-shadow: 0 0 4px rgba(135, 206, 235, 0.6);
+  }
+
+  #display {
+    width: calc(100% - 20px);
+    height: 50px;
+    background-color: #0d1217;
+    border: none;
+    border-radius: 8px;
+    padding: 0 10px;
+    margin-bottom: 20px;
+    font-size: 1.8em;
+    color: #e0f2f7;
+    text-align: right;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.7);
+    outline: none;
+    text-overflow: ellipsis;
+  }
+
+  .buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+  }
+
+  button {
+    width: 100%;
+    height: 55px;
+    background-color: #2b3b4d;
+    color: #ecf0f1;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.3em;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    outline: none;
+    user-select: none;
+  }
+
+  button:nth-child(3),
+  button:nth-child(4),
+  button:nth-child(8),
+  button:nth-child(12),
+  button:nth-child(16),
+  button:nth-child(19),
+  button:nth-child(20) {
+    background-color: #34495e;
+    color: #87CEEB;
+  }
+
+  button.enter {
+    grid-column: span 2;
+    background-color: #27ae60;
+    color: #ecf0f1;
+    font-size: 1.8em;
+    box-shadow: 0 5px 10px rgba(39, 174, 96, 0.4);
+  }
+
+  button:hover {
+    background-color: #3a4f64;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+  }
+
+  button:nth-child(3):hover,
+  button:nth-child(4):hover,
+  button:nth-child(8):hover,
+  button:nth-child(12):hover,
+  button:nth-child(16):hover,
+  button:nth-child(19):hover,
+  button:nth-child(20):hover {
+    background-color: #435b75;
+    color: #B2DAF0;
+  }
+
+  button.enter:hover {
+    background-color: #2ecc71;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 14px rgba(39, 174, 96, 0.6);
+  }
+
+  button:active {
+    background-color: #22303e;
+    transform: translateY(0);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+  }
+
+  button.enter:active {
+    background-color: #219d54;
+    transform: translateY(0);
+    box-shadow: 0 2px 6px rgba(39, 174, 96, 0.4);
+  }
+</style>
+</head>
+<body>
+    <div class="calculator">
+      <h2>Calculator</h2>
+      <input type="text" id="display" disabled />
+
+      <div class="buttons">
+        <button>(</button>
+        <button>)</button>
+        <button>del</button>
+        <button>clear</button>
+
+        <button>7</button>
+        <button>8</button>
+        <button>9</button>
+        <button>%</button>
+
+        <button>4</button>
+        <button>5</button>
+        <button>6</button>
+        <button>*</button>
+
+        <button>1</button>
+        <button>2</button>
+        <button>3</button>
+        <button>/</button>
+
+        <button>.</button>
+        <button>0</button>
+        <button>+</button>
+        <button>-</button>
+
+        <button class="enter">=</button>
+      </div>
+    </div>
+
+    <script>
+      const display = document.getElementById("display");
+      const buttons = document.querySelectorAll("button");
+
+      buttons.forEach(button => {
+        button.addEventListener("click", () => {
+          const value = button.textContent;
+
+          if (value === "clear") {
+            display.value = "";
+          } else if (value === "del") {
+            display.value = display.value.slice(0, -1);
+          } else if (value === "=") {
+            try {
+              display.value = eval(display.value) || "";
+            } catch (e) {
+              display.value = "Error";
+            }
+          } else {
+            display.value += value;
+          }
+        });
+      });
+    </script>
+</body>
+</html>

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>To-Do List Web App</title>
+  <style>
+    :root {
+      --mint: #DEFCF9;
+      --pastel-blue: #CADEFC;
+      --lavender-blue: #C3BEF0;
+      --orchid: #CCA8E9;
+      --text-dark: #222;
+      --white: #fff;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: var(--mint);
+      padding: 20px;
+      color: var(--text-dark);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: var(--orchid);
+      font-size: 2.5rem;
+    }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .form-card, .task-section {
+      background: var(--pastel-blue);
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      flex: 1;
+      min-width: 320px;
+    }
+
+    .form-card input,
+    .form-card textarea {
+      width: 100%;
+      margin-bottom: 15px;
+      padding: 12px;
+      border: 1px solid #aaa;
+      border-radius: 8px;
+      font-size: 1rem;
+      background: var(--white);
+      color: var(--text-dark);
+    }
+
+    .form-card button {
+      width: 100%;
+      padding: 12px;
+      font-size: 1rem;
+      background: var(--orchid);
+      color: var(--white);
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+
+    .form-card button:hover {
+      background: #b88ae0;
+    }
+
+    .task-card {
+      background: var(--white);
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 12px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      position: relative;
+    }
+
+    .task-card .title {
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: var(--lavender-blue);
+    }
+
+    .task-card .description {
+      margin-top: 6px;
+      font-size: 0.95rem;
+      color: var(--text-dark);
+    }
+
+    .task-card .timestamp {
+      margin-top: 8px;
+      font-size: 0.8rem;
+      color: #555;
+    }
+
+    .task-card .buttons {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+    }
+
+    .task-card .buttons button {
+      margin-left: 5px;
+      background: var(--lavender-blue);
+      border: none;
+      padding: 5px 8px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 0.75rem;
+      color: var(--text-dark);
+    }
+
+    .task-card .buttons .delete {
+      background: crimson;
+      color: #fff;
+    }
+
+    .section-header {
+      color: var(--text-dark);
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+<h1>📋 To-Do List Web App</h1>
+
+<div class="container">
+  <div class="form-card">
+    <form id="todoForm">
+      <input type="text" id="title" placeholder="Task title" required />
+      <textarea id="description" placeholder="Task description" required></textarea>
+      <button type="submit">Add Task</button>
+    </form>
+  </div>
+
+  <div class="task-section">
+    <div class="section-header">⏳ Pending Tasks</div>
+    <div id="pendingTasks"></div>
+  </div>
+
+  <div class="task-section">
+    <div class="section-header">✅ Completed Tasks</div>
+    <div id="completedTasks"></div>
+  </div>
+</div>
+
+<script>
+  const form = document.getElementById("todoForm");
+  const title = document.getElementById("title");
+  const description = document.getElementById("description");
+  const pendingTasks = document.getElementById("pendingTasks");
+  const completedTasks = document.getElementById("completedTasks");
+
+  let tasks = [];
+
+  function renderTasks() {
+    pendingTasks.innerHTML = "";
+    completedTasks.innerHTML = "";
+
+    tasks.forEach((task, index) => {
+      const card = document.createElement("div");
+      card.className = "task-card";
+
+      card.innerHTML = `
+        <div class="title">${task.title}</div>
+        <div class="description">${task.description}</div>
+        <div class="timestamp">${task.status === "pending" ? "Added: " + task.created : "Completed: " + task.completed}</div>
+        <div class="buttons">
+          ${task.status === "pending" ? `<button onclick="editTask(${index})">Edit</button><button onclick="completeTask(${index})">✓</button>` : ""}
+          <button class="delete" onclick="deleteTask(${index})">X</button>
+        </div>
+      `;
+
+      (task.status === "pending" ? pendingTasks : completedTasks).appendChild(card);
+    });
+  }
+
+  function addTask(e) {
+    e.preventDefault();
+    const newTask = {
+      title: title.value,
+      description: description.value,
+      status: "pending",
+      created: new Date().toLocaleString()
+    };
+    tasks.push(newTask);
+    form.reset();
+    renderTasks();
+  }
+
+  function completeTask(index) {
+    tasks[index].status = "completed";
+    tasks[index].completed = new Date().toLocaleString();
+    renderTasks();
+  }
+
+  function deleteTask(index) {
+    tasks.splice(index, 1);
+    renderTasks();
+  }
+
+  function editTask(index) {
+    const task = tasks[index];
+    title.value = task.title;
+    description.value = task.description;
+    deleteTask(index);
+  }
+
+  form.addEventListener("submit", addTask);
+</script>
+
+</body>
+</html>
